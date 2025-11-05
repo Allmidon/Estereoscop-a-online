@@ -43,7 +43,7 @@ function init() {
     camera.position.set(0, 1.6, 0); // Posición inicial (altura de los ojos)
 
     // Luces
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambientLight);
     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
     directionalLight.position.set(1, 1, 1);
@@ -141,7 +141,8 @@ function createImageViewer() {
     // cambiar el 'offset' y 'repeat' de la textura
     // dinámicamente para cada ojo.
 
-    imageMaterial = new THREE.MeshBasicMaterial({ map: null });
+    // LÍNEA NUEVA:
+    imageMaterial = new THREE.MeshBasicMaterial({ map: null, color: 0xffffff });
 
     imageMaterial.onBeforeRender = (renderer, scene, camera, geometry, material, group) => {
         // 'camera' aquí es la cámara específica del ojo (izquierdo o derecho)
