@@ -15,10 +15,10 @@ let imageCollection = [
     // IMPORTANTE: Reemplaza estas URLs con tus propias imágenes SBS
     // He usado imágenes de ejemplo de Wikimedia Commons (formato anaglifo, pero sirven para SBS)
     // Para un efecto 3D real, necesitas imágenes "Side-by-Side" (izquierda/derecha)
-    './images/Image1.jpeg',
-    './images/Image2.jpeg',
-    './images/Image3.jpeg',
-    './images/Image4.jpeg',
+    'images/Image1.jpeg',
+    'images/Image2.jpeg',
+    'images/Image3.jpeg',
+    'images/Image4.jpeg',
 ];
 let currentImageIndex = 0;
 let imagePlane, imageMaterial, textureLoader;
