@@ -1,0 +1,192 @@
+body {
+    margin: 0;
+    overflow: hidden; /* Ocultar barras de desplazamiento */
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+
+canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+#ui-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    transition: opacity 0.3s ease;
+}
+
+#ui-container.hidden {
+    opacity: 0;
+    pointer-events: none; /* Deshabilita interacciones cuando está oculto */
+}
+
+h1 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.mode-selector button,
+#image-controls button,
+#vr-toggle-container button {
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mode-selector button:hover,
+#image-controls button:hover,
+#vr-toggle-container button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.mode-selector button:active,
+#image-controls button:active,
+#vr-toggle-container button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#image-controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+#image-controls.hidden {
+    display: none;
+}
+
+.instruction {
+    margin-top: 30px;
+    font-size: 1em;
+    color: #ccc;
+    text-align: center;
+}
+
+/* Gaze pointer */
+#vr-gaze-pointer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-left: -10px; /* Centrar */
+    margin-top: -10px;  /* Centrar */
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    z-index: 2; /* Encima de la UI */
+    display: none; /* Oculto por defecto */
+    pointer-events: none; /* No debe interferir con el clic */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+#vr-gaze-pointer.active {
+    background-color: rgba(255, 255, 0, 0.9); /* Amarillo cuando está activo (presionado) */
+    box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+}
+
+/* ... (Estilos anteriores) ... */
+
+#vr-button-container {
+    margin-top: 20px;
+    z-index: 100; /* Asegura que esté por encima de otros elementos */
+}
+
+/* Es posible que el VRButton de Three.js genere su propio estilo.
+   Si quieres anularlo, tendrías que inspeccionar el DOM y apuntar a sus clases. */
+.mode-selector button,
+#image-controls button { /* Ajustado para no afectar al VRButton */
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mode-selector button:hover,
+#image-controls button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.mode-selector button:active,
+#image-controls button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Gaze pointer */
+#vr-gaze-pointer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-left: -10px; /* Centrar */
+    margin-top: -10px;  /* Centrar */
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    z-index: 2; /* Encima de la UI */
+    display: none; /* Oculto por defecto */
+    pointer-events: none; /* No debe interferir con el clic */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    /* Animación para el puntero de carga */
+    transform-origin: center;
+    transition: transform 0.1s ease-out; /* Para que parezca que se "carga" */
+}
+
+#vr-gaze-pointer.active {
+    background-color: rgba(255, 255, 0, 0.9); /* Amarillo cuando está activo (presionado) */
+    box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+    transform: scale(0.8); /* Se encoge un poco */
+}
+
+/* Estilo para el botón VR generado por Three.js */
+.webxr-button {
+    margin-top: 20px;
+    font-size: 1.2em;
+    background-color: #28a745; /* Verde */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.webxr-button:hover {
+    background-color: #218838;
+}
